@@ -1,5 +1,6 @@
 from typing import Optional
 import time
+import argparse
 
 from mcp.server.fastmcp import FastMCP
 import pyte
@@ -8,7 +9,7 @@ from ctf_agent.tools.docker_util import DockerShell
 
 server = FastMCP("ctf-agent-workenv")
 _shell: Optional[DockerShell] = None
-
+mounts = []
 
 @server.tool()
 def workenv_check_connection():
@@ -17,24 +18,16 @@ def workenv_check_connection():
     """
     global _shell
     if _shell is None:
-        _shell = DockerShell()
+        _shell = DockerShell(mounts=mounts)
         try:
             _shell.start()
         except Exception as e:
             _shell = None
             return f"Failed to start docker shell: {e!s}"
     _shell.send(r"export PS1='(CTF_AGENT)\u:\w\$ '")
-    time.sleep(0.5)
+    time.sleep(1)
     _shell.recv_until("(CTF_AGENT)")
     return "Docker shell started successfully."
-    # try:
-    #     _shell.send("echo CHECK")
-    #     out = _shell.recv_rendered(timeout=5)
-    #     if "CHECK" in out:
-    #         return "Docker workenv is running" + out
-    #     return f"Unexpected output: {out!r}"
-    # except Exception as e:
-    #     return f"Error communicating with docker shell: {e!s}"
 
 
 @server.tool()
@@ -56,11 +49,20 @@ def workenv_run_command(command: str) -> str:
         screen = pyte.Screen(80, 24)
         stream = pyte.Stream(screen)
         stream.feed(output)
-        lines = list(screen.display)
+        lines = [line.strip() for line in screen.display]
         return "\n".join(lines)
     except Exception as e:
         return f"Error running command: {e!s}"
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Docker MCP Server")
+    parser.add_argument(
+        "--mount",
+        action="append",
+        default=[],
+        help="Add a volume mount in the form /host/path:/container/path[:opts]",
+    )
+    args = parser.parse_args()
+    mounts.extend(args.mount)
     server.run()

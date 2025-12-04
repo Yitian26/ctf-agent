@@ -14,17 +14,7 @@ def _default_third_party():
 
 def setup_toolsets():
     servers = []
-    names = [
-        "test_server",
-        "docker_mcp",
-    ]
-    for name in names:
-        fname = name if name.endswith(".py") else f"{name}.py"
-        abs_path = os.path.join(os.path.dirname(__file__), fname)
-        rel_path = os.path.join("src", "ctf_agent", "tools", fname)
-        if os.path.exists(abs_path):
-            logger.info(f"Found tool : {abs_path}")
-            servers.append(MCPServerStdio("uv", args=["run", rel_path], timeout=30))
+    servers.append(MCPServerStdio("uv", args=["run", "src/ctf_agent/tools/docker_mcp.py","--mount", "dataset:/workspace"], timeout=30))
     return _default_third_party() + servers
 
 
