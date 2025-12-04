@@ -1,7 +1,7 @@
 from pydantic_ai.mcp import MCPServerStdio 
 from pydantic_ai import Agent
 
-from .config import get_config
+from ..util.config import get_config
 from .agent import create_agent
 from .builtins import setup_builtins
 from ..tools import setup_toolsets

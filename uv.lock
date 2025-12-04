@@ -357,6 +357,7 @@ name = "ctf-agent"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "colorama" },
     { name = "ida-pro-mcp" },
     { name = "mcp", extra = ["cli"] },
     { name = "pydantic-ai" },
@@ -365,6 +366,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "colorama", specifier = ">=0.4.6" },
     { name = "ida-pro-mcp", specifier = ">=1.4.0" },
     { name = "mcp", extras = ["cli"], specifier = ">=1.22.0" },
     { name = "pydantic-ai", specifier = ">=1.22.0" },

@@ -5,6 +5,7 @@ description = "Agent designed for ai-assisted ctf problem solving"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "colorama>=0.4.6",
     "ida-pro-mcp>=1.4.0",
     "mcp[cli]>=1.22.0",
     "pydantic-ai>=1.22.0",

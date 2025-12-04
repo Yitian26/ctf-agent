@@ -1,16 +1,30 @@
-from pydantic_ai.mcp import MCPServerStdio 
+import os
 
-def setup_third_party():
-    _ida_pro_mcp = MCPServerStdio('uv',args=["run",".venv/lib/python3.12/site-packages/ida_pro_mcp/server.py"],timeout=10)
-    return [_ida_pro_mcp]
-    _mcp_run_python = MCPServerStdio('uv', args=['mcp-run-python@latest', 'stdio'], timeout=10)
-    return [_mcp_run_python]
+from pydantic_ai.mcp import MCPServerStdio
 
-def setup_ctf_tools():
-    _test_server = MCPServerStdio("uv", args=["run","src/ctf_agent/tools/test_server.py"], timeout=10)
-    return [_test_server]
+from ..util.logger import register_logger
+
+logger = register_logger(__name__)
+
+def _default_third_party():
+    return [
+        MCPServerStdio("uv",args=["run", ".venv/lib/python3.12/site-packages/ida_pro_mcp/server.py"],timeout=30),
+    ]
+
 
 def setup_toolsets():
-    return setup_third_party() + setup_ctf_tools()
+    servers = []
+    names = [
+        "test_server",
+    ]
+    for name in names:
+        fname = name if name.endswith(".py") else f"{name}.py"
+        abs_path = os.path.join(os.path.dirname(__file__), fname)
+        rel_path = os.path.join("src", "ctf_agent", "tools", fname)
+        if os.path.exists(abs_path):
+            logger.info(f"Found tool : {abs_path}")
+            servers.append(MCPServerStdio("uv", args=["run", rel_path], timeout=30))
+    return _default_third_party() + servers
 
-__all__ = ['setup_toolsets']
+
+__all__ = ["setup_toolsets"]
