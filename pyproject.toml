@@ -1,10 +1,18 @@
 [project]
 name = "ctf-agent"
 version = "0.1.0"
-description = "Add your description here"
+description = "Agent designed for ai-assisted ctf problem solving"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "ida-pro-mcp>=1.4.0",
     "mcp[cli]>=1.22.0",
     "pydantic-ai>=1.22.0",
+    "python-dotenv>=1.2.1",
 ]
+[project.scripts]
+ctf-agent = "ctf_agent.core.cli:main"
+
+[tool.uv]
+package = true
+[tool]      

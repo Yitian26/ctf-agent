@@ -355,16 +355,20 @@ wheels = [
 [[package]]
 name = "ctf-agent"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
+    { name = "ida-pro-mcp" },
     { name = "mcp", extra = ["cli"] },
     { name = "pydantic-ai" },
+    { name = "python-dotenv" },
 ]
 
 [package.metadata]
 requires-dist = [
+    { name = "ida-pro-mcp", specifier = ">=1.4.0" },
     { name = "mcp", extras = ["cli"], specifier = ">=1.22.0" },
     { name = "pydantic-ai", specifier = ">=1.22.0" },
+    { name = "python-dotenv", specifier = ">=1.2.1" },
 ]
 
 [[package]]
@@ -730,6 +734,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/fb/02/c3d534d7498ba2792da1d2ce56b5d38bbcbcbbba62071c90ee289b408e8d/huggingface_hub-1.1.5.tar.gz", hash = "sha256:40ba5c9a08792d888fde6088920a0a71ab3cd9d5e6617c81a797c657f1fd9968", size = 607199, upload-time = "2025-11-20T15:49:32.809Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/35/f4/124858007ddf3c61e9b144107304c9152fa80b5b6c168da07d86fe583cc1/huggingface_hub-1.1.5-py3-none-any.whl", hash = "sha256:e88ecc129011f37b868586bbcfae6c56868cae80cd56a79d61575426a3aa0d7d", size = 516000, upload-time = "2025-11-20T15:49:30.926Z" },
+]
+
+[[package]]
+name = "ida-pro-mcp"
+version = "1.4.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "mcp" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/16/79/74dc24eff5ab24cd61dc128f446e3e2d952a847a408640ebfe4f6f5bc92f/ida_pro_mcp-1.4.0.tar.gz", hash = "sha256:497bacc58c7f47486b09707638ddbf2c86c9f034a668c83b6e4d5fe98bfb0146", size = 40070, upload-time = "2025-10-06T13:26:59.164Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/54/54/b3c49cb339bf4af191fd976bf7ffcaaf5a2b33ba08ef30f02f16b6de837c/ida_pro_mcp-1.4.0-py3-none-any.whl", hash = "sha256:19221839589037069b057333c581425616ebaccab47e2dc4f0b30ddd72da230d", size = 37272, upload-time = "2025-10-06T13:26:58.296Z" },
 ]
 
 [[package]]

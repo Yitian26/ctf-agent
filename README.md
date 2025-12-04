@@ -13,3 +13,16 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -e .
 ```
+
+### ida-pro-mcp setup
+
+```bash
+uv add ida-pro-mcp
+uv run ida-pro-mcp --install
+```
+
+## usage
+
+```bash
+uv run ctf-agent
+```
