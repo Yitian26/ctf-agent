@@ -17,7 +17,6 @@ pip install -e .
 ### ida-pro-mcp setup
 
 ```bash
-uv add ida-pro-mcp
 uv run ida-pro-mcp --install
 ```
 

@@ -1,5 +1,6 @@
 .venv/
 .env
+.logfire/
 *.egg-info/
 __pycache__/
 # editor
