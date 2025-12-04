@@ -1,3 +1,5 @@
+import asyncio
+
 from pydantic_ai.mcp import MCPServerStdio 
 from pydantic_ai import Agent
 
@@ -21,12 +23,18 @@ def setup_agent():
     setup_builtins(agent)
     return agent
 
-def main():
+async def loop():
     if DEBUG:
         debug()
     agent = setup_agent()
-    while True:
-        userinput = input("You: ")
-        result = agent.run_sync(userinput)
-        print(result.output)
+    history = []
+    async with agent:
+        while True:
+            userinput = input("You: ")
+            result = await agent.run(userinput, message_history=history)
+            print(result.output)
+            history = result.all_messages()
         # print(result.all_messages())
+
+def main():
+    asyncio.run(loop())

@@ -9,6 +9,7 @@ dependencies = [
     "ida-pro-mcp>=1.4.0",
     "mcp[cli]>=1.22.0",
     "pydantic-ai>=1.22.0",
+    "pyte>=0.8.2",
     "python-dotenv>=1.2.1",
 ]
 [project.scripts]

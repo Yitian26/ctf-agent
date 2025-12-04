@@ -16,6 +16,7 @@ def setup_toolsets():
     servers = []
     names = [
         "test_server",
+        "docker_mcp",
     ]
     for name in names:
         fname = name if name.endswith(".py") else f"{name}.py"

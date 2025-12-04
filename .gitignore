@@ -1,6 +1,9 @@
-.venv/
+#local
+dataset/
 .env
 .logfire/
+#build files
+.venv/
 *.egg-info/
 __pycache__/
 # editor
